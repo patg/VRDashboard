@@ -360,10 +360,12 @@ var controller = function () {
     }
     
     function callUrlVH (raceId, beta) {
+        // http://aguas-10:8080/vh?forecastbundle=NOAA-BUNDLE&starttime=NIL&polars=clipper_70_v2&foils=false&polish=false&fastmanoeuvres=false&minwind=true&duration=24&searchangle=90&angleincrement=2&pointsperisochrone=300
         var baseURL = 'http://aguas-10:8080/vh';
         var race = legInfos.get(raceId); 
         var url = baseURL + '?race=' + raceId
             + '&polars=' + polars[race.curr.boat.polar_id].label.split("/")[1]
+            + '&options=' + race.curr.options
             + '&startlat=' + race.curr.pos.lat
             + '&startlon=' + race.curr.pos.lon
             + '&destlat=' + race.end.lat
