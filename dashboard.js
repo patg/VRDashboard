@@ -493,7 +493,7 @@ var controller = function () {
             }
 
             // Map to request type via requestId
-            var request = JSON.parse(params.response.payloadData);
+            var request = JSON.parse(params.response.payloadData.replace(/\bNaN\b/g, "null"));
             requests.set(request.requestId, request);
             
         } else if ( message == "Network.webSocketFrameReceived" ) {
@@ -502,7 +502,7 @@ var controller = function () {
                 divRawLog.innerHTML = divRawLog.innerHTML + '\n' +  '<<< ' + params.response.payloadData;
             }
             
-            var response = JSON.parse(params.response.payloadData);
+            var response = JSON.parse(params.response.payloadData.replace(/\bNaN\b/g, "null"));
             if ( response == undefined ) {
                 console.log("Invalid JSON in payload");
             } else {
