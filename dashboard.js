@@ -250,9 +250,10 @@ var controller = function () {
             if(r.type === "leg") {
                 info = "<span>" + r.legName + "</span>";
             } else if(r.type === "record") {
-                info = " <span>Record, Attempt " + parseInt(r.record.attemptCounter) + "</span>";
+                if(r.record) info = " <span>Record, Attempt " + parseInt(r.record.attemptCounter) + "</span>";
+                else info = " <span>Record</span>";
             }
-            if(r.type === "record" && r.record.lastRankingGateName) {
+            if(r.type === "record" && r.record && r.record.lastRankingGateName) {
                 info += "<br/><span>@" + r.record.lastRankingGateName + "</span>";
             }
 
@@ -868,10 +869,11 @@ var controller = function () {
             }
             saveMessage(r);
         }
-    if(message.gateGroupCounters) {
-        r.gatecnt = message.gateGroupCounters;
-        updatemap(r,"cp");
-    }
+        if(message.gateGroupCounters) {
+            r.gatecnt = message.gateGroupCounters;
+            updatemap(r,"cp");
+        }
+        if(message.record) r.record = message.record;
         divRaceStatus.innerHTML = makeRaceStatusHTML();
         updatemap(r,"me");
     }
@@ -1601,7 +1603,9 @@ var controller = function () {
                         // First boat state message, only sent for the race the UI is displaying
                         var raceId = getRaceLegId(response.scriptData.boatState._id);
                         var race =  races.get(raceId);
-                        race.legdata = response.scriptData.leg;
+                        if(response.scriptData.leg) {
+                            race.legdata = response.scriptData.leg;
+                        }
                         // Don't try old race_id, messages will be misdirected
                         updatePosition(response.scriptData.boatState, race);
                         if (cbRouter.checked) {
