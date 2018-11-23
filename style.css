@@ -45,6 +45,7 @@ label, select, input, button {
 table {
 	border: 1px solid black;
 	border-collapse: collapse;
+    width: 100%;
 }
 tr.sel {
 	background: #eeeeee;
@@ -58,6 +59,8 @@ tr.hov:hover {
 th {
 	border: 1px solid black;
 	padding: 2px;
+    background-color: #398AF5;
+    color: white;
 }
 td {
 	border: 1px solid grey;
@@ -102,6 +105,7 @@ td.tdc {
 	color: #000;
 	background: #eee;
 }
+
 .tabs>.tab>[id^="ts:"]:checked + label {
 	top: 0;
 	background: #555;
@@ -115,3 +119,11 @@ td.tdc {
 	width: 1em;
 	bottom: -0.125em;
 }
+
+thead.sticky th {
+    position: sticky;
+    top: 0;
+    outline: 1px solid black;
+    outline-offset: -1px; 
+}
+
